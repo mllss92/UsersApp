@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <table class="table table-hover table-striped table-secondary">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usersArr">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.created_at | date:"yyyy-MM-dd HH:mm" }}</td>
+        <td>{{ user.updated_at | date:"yyyy-MM-dd HH:mm" }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="pagination.collectionSize"
+    [(page)]="pagination.page" [pageSize]="pagination.pageSize" (pageChange)="onPageChange()">
+  </ngb-pagination>
+</div>
