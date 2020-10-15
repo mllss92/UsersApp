@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/services/shared.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
   }
 
+  signOut(): void {
+  }
 }

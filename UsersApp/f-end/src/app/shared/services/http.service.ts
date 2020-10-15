@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { User } from './../interfaces/user';
 import { Pagination } from './../interfaces/pagination';
 import { AuthData } from './../interfaces/auth-data';
 
@@ -18,5 +19,9 @@ export class HttpService {
 
   public getUsers(pagination: Pagination): Observable<object> {
     return this.http.post('http://localhost:3000/api/users/get-users', pagination);
+  }
+
+  public createUser(user: User): Observable<object> {
+    return this.http.post('http://localhost:3000/api/users/create-user', user);
   }
 }

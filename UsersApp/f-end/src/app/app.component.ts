@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { SharedService } from './shared/services/shared.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  log(ref: any): void {
-    console.dir(ref.nextSibling);
-  }
+  window = window;
+
+  constructor(public sharedService: SharedService) { }
+
+
 }

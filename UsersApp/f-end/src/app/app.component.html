@@ -1,2 +1,4 @@
-<app-header *ngIf="test.nextSibling.localName !== 'app-login'"></app-header>
-<router-outlet #test></router-outlet>
+<app-header *ngIf="window.location.pathname !== '/login' && view.nextSibling.localName !== 'app-not-found'">
+</app-header>
+
+<router-outlet #view></router-outlet>

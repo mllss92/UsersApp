@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <button class="btn btn-secondary form-control" (click)="isHidden = !isHidden">Add new user</button>
+
+  <div class="add-form p-2 m-2 border slideDown" *ngIf="isHidden">
+    <form class="form-group" [formGroup]="createdForm" (ngSubmit)="createUser()">
+      <div class="name my-2">
+        <label for="name">Enter the name:</label>
+        <input class="form-control" type="text" name="name" id="name" formControlName="name">
+        <app-validation-err-msg [message]="nameValidationMsg"
+          *ngIf="!createdForm.controls.name.pristine && createdForm.controls.name.status === 'INVALID'">
+        </app-validation-err-msg>
+      </div>
+      <div class="email my-2">
+        <label for="email">Enter the email address:</label>
+        <input class="form-control" type="text" name="email" id="email" formControlName="email">
+        <app-validation-err-msg [message]="emailValidationMsg"
+          *ngIf="!createdForm.controls.email.pristine && createdForm.controls.email.status === 'INVALID'">
+        </app-validation-err-msg>
+      </div>
+      <div class="password my-2">
+        <label for="password">Enter the password:</label>
+        <input class="form-control" type="password" name="password" id="password" formControlName="password">
+        <app-validation-err-msg [message]="passwordValidationMsg"
+          *ngIf="!createdForm.controls.password.pristine && createdForm.controls.password.status === 'INVALID'">
+        </app-validation-err-msg>
+      </div>
+      <div class="confirm-password my-2">
+        <label for="confirmPassword">Confirm the password:</label>
+        <input class="form-control" type="password" name="confirmPassword" id="confirmPassword"
+          formControlName="confirmPassword" [ngClass]="{
+            red: createdForm.value.password !== createdForm.value.confirmPassword && !createdForm.controls.confirmPassword.pristine
+          }">
+      </div>
+
+      <input class="btn btn-success form-control mt-4" type="submit" value="Create new user"
+        [disabled]="createdForm.invalid">
+    </form>
+  </div>
+</div>

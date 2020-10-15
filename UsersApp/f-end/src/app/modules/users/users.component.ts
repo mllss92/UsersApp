@@ -1,9 +1,10 @@
-import { HttpService } from './../../shared/services/http.service';
 import { Component, OnInit } from '@angular/core';
 
+import { HttpService } from './../../shared/services/http.service';
 import { UsersList } from './../../shared/interfaces/users-list';
-import { User } from '../../shared/interfaces/user';
+import { User } from './../../shared/interfaces/user';
 import { Pagination } from './../../shared/interfaces/pagination';
+
 
 @Component({
   selector: 'app-users',
@@ -16,7 +17,7 @@ export class UsersComponent implements OnInit {
 
   pagination = {
     page: 1,
-    pageSize: 5,
+    pageSize: 8,
     collectionSize: 0
   };
 

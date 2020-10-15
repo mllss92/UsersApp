@@ -12,6 +12,6 @@
     <button class="btn btn-sm btn-outline-secondary w-20" [routerLink]="'home'">Home</button>
     <button class="btn btn-sm btn-outline-secondary w-20" [routerLink]="'my-page'">My Page</button>
     <button class="btn btn-sm btn-outline-secondary w-20" [routerLink]="'users'">Users</button>
-    <button class="btn btn-sm btn-outline-secondary w-20" [routerLink]="'login'">Logout</button>
+    <button class="btn btn-sm btn-outline-secondary w-20" [routerLink]="'login'" (click)="signOut()">Logout</button>
   </nav>
 </div>
