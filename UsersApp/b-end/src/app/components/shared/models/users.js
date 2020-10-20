@@ -3,10 +3,20 @@ const autoInc = require('mongoose-plugin-autoinc');
 
 const UserSchema = mongoose.Schema({
   name: { type: String, required: true },
-  email: { type: String, required: true },
+  email: {
+    type: String,
+    required: true,
+    lowercase: true,
+    unique: true
+  },
   password: { type: String, required: true },
-  created_at: { type: Date, required: true },
-  updated_at: Date
+  created_at: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
+  updated_at: Date,
+  isAdmin: { type: Boolean, default: false }
 });
 
 UserSchema.plugin(autoInc.autoIncrement, {

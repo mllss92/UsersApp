@@ -1,1 +1,14 @@
-<p>user-details works!</p>
+<div class="container">
+  <div class="info bg-secondary p-5 text-light">
+    <ul>
+      <li>Name: <strong class="text-info ml-2">{{ infoAboutUser.name }}</strong> </li>
+      <li>UID: <strong class="text-info ml-2">{{ infoAboutUser.id }}</strong></li>
+      <li>Created at: <strong class="text-info ml-2">{{ infoAboutUser.created_at | date:'yyyy-MM-dd HH:mm' }}</strong>
+      <li>Updated at: <strong class="text-info ml-2"
+          *ngIf="infoAboutUser.updated_at; else empty">{{ infoAboutUser.updated_at | date:'yyyy-MM-dd HH:mm' }}</strong>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #empty><strong>no update</strong></ng-template>

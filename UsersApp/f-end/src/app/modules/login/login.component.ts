@@ -1,10 +1,8 @@
-import { NotifyService } from './../../shared/services/notify.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { SharedService } from './../../shared/services/shared.service';
-import { HttpService } from './../../shared/services/http.service';
+import { AuthService } from './../../shared/services/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -15,12 +13,7 @@ export class LoginComponent implements OnInit {
 
   authForm: FormGroup;
 
-  constructor(
-    private httpService: HttpService,
-    private router: Router,
-    private sharedService: SharedService,
-    private notify: NotifyService
-  ) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
     this.authForm = new FormGroup({
@@ -30,14 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   tryLogin(): void {
-    this.httpService.tryLogin(this.authForm.value).subscribe(
-      res => {
-        if (res) {
-          this.notify.success('Hello, Name', 'Login is successfull!');
-          this.router.navigate(['/home']);
-        }
-      }
-    );
+    this.auth.tryLogin(this.authForm.value);
   }
 
 }

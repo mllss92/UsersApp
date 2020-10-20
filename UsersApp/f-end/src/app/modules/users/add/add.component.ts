@@ -50,7 +50,7 @@ export class AddComponent implements OnInit {
         );
       },
       err => {
-        this.notify.error(`${err.message}`);
+        this.notify.error(err.error.message);
       }
     );
   }
