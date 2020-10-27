@@ -1,5 +1,8 @@
-<div class="container">
-  <div class="info bg-secondary p-5 text-light">
+<div class="container bg-secondary px-5 pb-5 text-light">
+  <div class="info">
+    <div class="edit d-flex justify-content-end">
+      <button class="edit-btn m-2 btn btn-sm btn-info" (click)="editSelf()">Edit</button>
+    </div>
     <ul>
       <li>Name: <strong class="text-info ml-2">{{ infoAboutSelf.name }}</strong> </li>
       <li>E-mail address: <strong class="text-info ml-2">{{ infoAboutSelf.email}}</strong></li>
@@ -11,6 +14,12 @@
       <li>Status: <strong class="text-info ml-2" *ngIf="infoAboutSelf.isAdmin">Admin</strong>
         <strong class="text-info ml-2" *ngIf="!infoAboutSelf.isAdmin">Customer</strong></li>
     </ul>
+    <h3>User rights:</h3>
+    <ul *ngIf="infoAboutSelf.userRights.length > 0; else noRights">
+      <li *ngFor="let right of infoAboutSelf.userRights">{{ right | rights }}</li>
+    </ul>
   </div>
+
 </div>
-<ng-template #empty> <strong>no update</strong></ng-template>
+<ng-template #empty> <strong class="text-info ml-2">no update</strong></ng-template>
+<ng-template #noRights> <strong>no rights</strong></ng-template>

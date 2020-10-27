@@ -11,11 +11,9 @@ export class HeaderComponent implements OnInit {
   name: string;
   email: string;
 
-  constructor(private sharedService: SharedService) { }
+  constructor(public sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.name = this.sharedService.authorizedUser.userData.name;
-    this.email = this.sharedService.authorizedUser.userData.email;
   }
 
   signOut(): void {

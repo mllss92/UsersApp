@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
     collectionSize: 0
   };
 
-  accesRight: boolean;
+  accesRight: string[] = [''];
 
   edit = false;
   editedUser: User;
@@ -33,12 +33,12 @@ export class UsersComponent implements OnInit {
     private httpService: HttpService,
     private notify: NotifyService,
     private router: Router,
-    private sharedService: SharedService
+    public sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
     this.getUsers(this.pagination);
-    this.getAccessRight(this.sharedService.authorizedUser.userData);
+    this.getAccessRight();
   }
 
   getUsers(pagination: Pagination): void {
@@ -49,8 +49,10 @@ export class UsersComponent implements OnInit {
       },
       err => {
         if (err.error === 'Unauthorized') {
-          this.notify.error(`${err.error}. Plese sign in!`);
+          this.notify.error(`Token is expired. Please sign in!`);
           this.router.navigate(['/login']);
+        } else {
+          this.notify.error(err.error);
         }
       }
     );
@@ -60,13 +62,17 @@ export class UsersComponent implements OnInit {
     this.getUsers(this.pagination);
   }
 
-  getAccessRight(user: object): void {
-    this.httpService.getAccessRight(user).subscribe(
-      res => {
-        this.accesRight = res as unknown as boolean;
+  getAccessRight(): void {
+    this.httpService.getAccessRight().subscribe(
+      (res: string[]) => {
+        this.accesRight = res;
       },
       err => {
-        this.notify.error(err.message);
+        if (err.error === 'Unauthorized') {
+          this.notify.error('No access right! Please sign in!');
+        } else {
+          this.notify.error(err.message);
+        }
       }
     );
   }
@@ -75,27 +81,5 @@ export class UsersComponent implements OnInit {
     this.router.navigate([`/users/${userId}`]);
   }
 
-  editUser(user: User): void {
-    this.editedUser = user;
-    this.edit = !this.edit;
-  }
-
-  deleteUser(userId: number): void {
-    const agree = confirm('Do you want delete this user?');
-    if (!agree) {
-      return;
-    }
-    this.httpService.deleteUser(userId).subscribe(
-      res => {
-        if (res) {
-          this.notify.success('Deleted successfully!');
-          this.onPageChange();
-        }
-      },
-      err => {
-        this.notify.error(err.error);
-      }
-    );
-  }
 
 }

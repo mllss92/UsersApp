@@ -1,8 +1,7 @@
+import { User } from './user';
+
 export interface AuthorizedUser {
-  userData: {
-    name: string,
-    email: string,
-    isAdmin?: boolean
-  };
+  userData: User;
+  isLogin: boolean;
   token: string;
 }

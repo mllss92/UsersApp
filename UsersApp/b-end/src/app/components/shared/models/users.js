@@ -16,7 +16,8 @@ const UserSchema = mongoose.Schema({
     default: Date.now,
   },
   updated_at: Date,
-  isAdmin: { type: Boolean, default: false }
+  isAdmin: { type: Boolean, default: false },
+  userRights: { type: Array, default: ['can_view_users'] }
 });
 
 UserSchema.plugin(autoInc.autoIncrement, {

@@ -17,8 +17,10 @@ const tryLogin = async (authData) => {
       return {
         userData: {
           name: isUser.name,
-          email: isUser.email
+          email: isUser.email,
+          id: isUser.id
         },
+        isLogin: true,
         token: `Bearer ${token}`
       }
     } else {

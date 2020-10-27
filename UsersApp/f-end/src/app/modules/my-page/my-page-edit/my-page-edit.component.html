@@ -1,0 +1,49 @@
+<div class="container bg-secondary px-5 text-light">
+  <div class="edit py-5">
+    <form class="form-group" [formGroup]="editForm" (change)="onFormChange()">
+      <div class="name border rounded p-2 mb-3">
+        <label for="name">Name:</label>
+        <input class="form-control" type="text" name="name" id="name" formControlName="name">
+        <small class="text-warning"
+          *ngIf="!editForm.controls.name.pristine && editForm.controls.name.status === 'INVALID'">Please use only Latin
+          letters. Min length is 2 characters. Numbers and following
+          symbols can not be used: !#:%,.()-_+^&*</small>
+      </div>
+
+      <div class="email border rounded p-2 mb-3">
+        <label for="email">E-mail addres:</label>
+        <input class="form-control" type="email" name="email" id="email" formControlName="email">
+        <small class="text-warning"
+          *ngIf="!editForm.controls.email.pristine && editForm.controls.email.status === 'INVALID'">Please make sure you
+          enter a valid email address</small>
+      </div>
+
+      <div class="password border rounded p-2 mb-3">
+        <div class="oldPassword  mb-3">
+          <label for="oldPassword">Old password:</label>
+          <input class="form-control" type="password" name="oldPassword" id="oldPassword" #oldPassword>
+        </div>
+
+        <div class="newPassword mb-3">
+          <label for="newPassword">New password:</label>
+          <input class="form-control" type="password" name="newPassword" id="newPassword" formControlName="password">
+          <small class="text-warning"
+            *ngIf="!editForm.controls.password.pristine && editForm.controls.password.status === 'INVALID'">The password
+            should contain 6 to 30 symbols and include both upper and lower case
+            letters in Latin and min one number</small>
+        </div>
+
+        <div class="confirmPassword">
+          <label for="confirmPassword">Confirm new password:</label>
+          <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" #confirmPassword>
+        </div>
+      </div>
+
+      <div class="buttons navbar">
+        <button class="btn btn-success w-25" type="submit" [disabled]="editForm.invalid || editForm.pristine"
+          (click)="onSubmit(editForm.value, oldPassword, confirmPassword)">Save</button>
+        <button class="btn btn-warning w-25" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

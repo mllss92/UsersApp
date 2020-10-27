@@ -9,7 +9,6 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { CoreRoutingModule } from './core-routing.module';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -28,7 +27,6 @@ import { CoreRoutingModule } from './core-routing.module';
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule
-
   ]
 })
 export class CoreModule { }

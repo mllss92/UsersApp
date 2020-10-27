@@ -7,4 +7,5 @@ export interface User {
   id?: number;
   _id?: string;
   isAdmin?: boolean;
+  userRights?: string[];
 }

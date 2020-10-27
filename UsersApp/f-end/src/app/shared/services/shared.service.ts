@@ -12,8 +12,11 @@ export class SharedService {
       name: this.getName() || '',
       email: this.getEmail() || ''
     },
+    isLogin: this.getIsLogin() || false,
     token: this.getToken() || ''
   };
+
+  isUserChenged: boolean;
 
   constructor() { }
 
@@ -27,5 +30,9 @@ export class SharedService {
 
   private getEmail(): string {
     return localStorage.getItem('user_email');
+  }
+
+  private getIsLogin(): boolean {
+    return localStorage.getItem('is_login') === 'true';
   }
 }

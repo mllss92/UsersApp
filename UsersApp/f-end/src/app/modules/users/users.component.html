@@ -1,24 +1,20 @@
 <app-add (updateUserList)="onPageChange()"></app-add>
-<app-edit-user *ngIf="edit" [editedUser]="editedUser" (cancel)="editUser()"></app-edit-user>
-<div class="container mt-3">
+<div class="container mt-3" *ngIf="accesRight.includes('can_view_users'); else noRights">
   <table class="table table-hover table-striped table-secondary">
     <thead class="thead-dark">
       <tr class="text-center">
         <th>Count</th>
         <th>Name</th>
         <th>Info</th>
-        <th *ngIf="accesRight">Edit</th>
-        <th *ngIf="accesRight">Delete</th>
       </tr>
     </thead>
     <tbody>
       <tr class="text-center" *ngFor="let user of usersArr; let i = index">
         <td>{{ (i + 1 - pagination.pageSize) + (pagination.page * pagination.pageSize) }}</td>
         <td>{{ user.name }}</td>
-        <td><button class="btn btn-sm btn-info" (click)="getInfoAboutUser(user.id)">About user</button></td>
-        <td *ngIf="accesRight"><button class="btn btn-sm btn-primary" (click)="editUser(user)">Edit user</button></td>
-        <td *ngIf="accesRight"><button class="btn btn-sm btn-warning" (click)="deleteUser(user.id)">Delete user</button>
-        </td>
+        <td><button class="btn btn-sm btn-info"
+            [disabled]="!(accesRight.includes('can_view_details_full') || accesRight.includes('can_view_details'))"
+            (click)="getInfoAboutUser(user.id)">About user</button></td>
       </tr>
     </tbody>
   </table>
@@ -26,3 +22,8 @@
     [(page)]="pagination.page" [pageSize]="pagination.pageSize" (pageChange)="onPageChange()">
   </ngb-pagination>
 </div>
+<ng-template #noRights>
+  <div class="mt-3 text-center">
+    <strong class="h2">You dont have rights to browse the list of users!</strong>
+  </div>
+</ng-template>

@@ -3,8 +3,8 @@
     <h2>User Panel</h2>
   </div>
   <div class="header-info">
-    <div class="name">{{ name }}</div>
-    <div class="email"><small>{{ email }}</small></div>
+    <div class="name">{{ sharedService.authorizedUser.userData.name }}</div>
+    <div class="email"><small>{{ sharedService.authorizedUser.userData.email }}</small></div>
   </div>
 </header>
 <div class="container">

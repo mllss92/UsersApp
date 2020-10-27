@@ -1,14 +1,39 @@
-<div class="container">
-  <div class="info bg-secondary p-5 text-light">
+<div class="container bg-secondary px-5 pb-5 text-light">
+  <div class="info">
+    <div class="edit d-flex justify-content-end">
+      <button class="edit-btn m-2 btn btn-sm btn-info"
+        [disabled]="!(accesRight.includes('can_edit_users') || accesRight.includes('can_edit_users_full'))"
+        (click)="editUser()">Edit</button>
+    </div>
     <ul>
+      <li *ngIf="accesRight.includes('can_view_details_full')">E-mail address: <strong
+          class="text-info ml-2">{{ infoAboutUser.email }}</strong></li>
       <li>Name: <strong class="text-info ml-2">{{ infoAboutUser.name }}</strong> </li>
       <li>UID: <strong class="text-info ml-2">{{ infoAboutUser.id }}</strong></li>
+      <li *ngIf="accesRight.includes('can_view_details_full')">Data Base id: <strong
+          class="text-info ml-2">{{ infoAboutUser._id }}</strong>
+      </li>
       <li>Created at: <strong class="text-info ml-2">{{ infoAboutUser.created_at | date:'yyyy-MM-dd HH:mm' }}</strong>
       <li>Updated at: <strong class="text-info ml-2"
           *ngIf="infoAboutUser.updated_at; else empty">{{ infoAboutUser.updated_at | date:'yyyy-MM-dd HH:mm' }}</strong>
       </li>
     </ul>
+
+    <div *ngIf="accesRight.includes('can_view_details_full')">
+      <h3>User rights:</h3>
+      <ul *ngIf="infoAboutUser.userRights.length > 0; else noRights">
+        <li *ngFor="let right of infoAboutUser.userRights">{{ right | rights }}</li>
+      </ul>
+    </div>
+
+    <div class="delete d-flex justify-content-end">
+      <button class="edit-btn m-2 btn btn-sm btn-danger" [disabled]="!accesRight.includes('can_delete_users')"
+        (click)="deleteUser()">Delete
+        user</button>
+    </div>
+
   </div>
 </div>
 
 <ng-template #empty><strong>no update</strong></ng-template>
+<ng-template #noRights> <strong>no rights</strong></ng-template>

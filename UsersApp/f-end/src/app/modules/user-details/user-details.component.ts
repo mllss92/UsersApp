@@ -15,7 +15,10 @@ export class UserDetailsComponent implements OnInit {
   infoAboutUser: User = {
     name: '',
     email: '',
+    userRights: []
   };
+
+  accesRight: string[] = [];
 
   constructor(
     private httpService: HttpService,
@@ -24,6 +27,7 @@ export class UserDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAccessRight();
     this.getInfoAboutUser(this.getUserIdfromUrl());
   }
 
@@ -49,7 +53,7 @@ export class UserDetailsComponent implements OnInit {
       },
       err => {
         if (err.error === 'Unauthorized') {
-          this.notify.error(`${err.error}. Plese sign in!`);
+          this.notify.error(`Token is expired. Please sign in!`);
           this.router.navigate(['/login']);
         } else {
           this.notify.error(err.message);
@@ -57,6 +61,46 @@ export class UserDetailsComponent implements OnInit {
         }
       }
     );
+  }
+
+  getAccessRight(): void {
+    this.httpService.getAccessRight().subscribe(
+      (res: string[]) => {
+        this.accesRight = res;
+      },
+      err => {
+        if (err.error === 'Unauthorized') {
+          this.notify.error('No access right! Please sign in!');
+        } else {
+          this.notify.error(err.message);
+        }
+      }
+    );
+  }
+
+  editUser(): void {
+    this.router.navigate([`/users/${this.getUserIdfromUrl()}/edit`]);
+  }
+
+  deleteUser(): void {
+    const question = confirm('Are you shure you want to delete this User?');
+    if (question) {
+      this.httpService.deleteUser(this.infoAboutUser.id).subscribe(
+        res => {
+          if (res) {
+            this.notify.success('User has been deleted successfully!');
+            this.router.navigate(['/users']);
+          }
+        },
+        err => {
+          if (err.error === 'Unauthorized') {
+            this.notify.error('No access right! Please sign in!');
+          } else {
+            this.notify.error(err.message);
+          }
+        }
+      );
+    }
   }
 
 }

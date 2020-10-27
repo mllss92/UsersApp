@@ -25,11 +25,13 @@ export class AuthService {
       (res: AuthorizedUser) => {
         if (res) {
           this.sharedService.authorizedUser = res;
+
           this.notify.success(`Hello, ${res.userData.name}, Login is successfull!`);
           this.router.navigate(['/home']);
           localStorage.setItem('auth_token', res.token);
           localStorage.setItem('user_name', res.userData.name);
           localStorage.setItem('user_email', res.userData.email);
+          localStorage.setItem('is_login', res.isLogin.toString());
         }
       },
       err => {

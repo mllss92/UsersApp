@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
 
 const getAccessRight = async (req, res) => {
   try {
-    const data = await service.getAccessRight(req.body);
+    const data = await service.getAccessRight(req.user.id);
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -38,7 +38,7 @@ const getInfoAboutUser = async (req, res) => {
 
 const getInfoAboutSelf = async (req, res) => {
   try {
-    const data = await service.getInfoAboutSelf(req.body);
+    const data = await service.getInfoAboutSelf(req.user.id);
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -48,6 +48,15 @@ const getInfoAboutSelf = async (req, res) => {
 const editUser = async (req, res) => {
   try {
     const data = await service.editUser(req.body);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+const editSelf = async (req, res) => {
+  try {
+    const data = await service.editSelf(req.user.id, req.body);
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -70,5 +79,6 @@ module.exports = {
   getInfoAboutUser,
   getInfoAboutSelf,
   editUser,
+  editSelf,
   deleteUser
 }

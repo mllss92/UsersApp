@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Router } from '@angular/router';
+
 import { NotifyService } from './../../shared/services/notify.service';
 import { User } from './../../shared/interfaces/user';
 import { SharedService } from './../../shared/services/shared.service';
@@ -15,7 +15,8 @@ export class MyPageComponent implements OnInit {
 
   infoAboutSelf: User = {
     name: '',
-    email: ''
+    email: '',
+    userRights: []
   };
 
   constructor(
@@ -31,14 +32,13 @@ export class MyPageComponent implements OnInit {
   }
 
   getInfoAboutSelf(): void {
-    const selfEmail = this.sharedService.authorizedUser.userData.email;
-    this.httpService.getInfoAboutSelf({ email: selfEmail }).subscribe(
+    this.httpService.getInfoAboutSelf().subscribe(
       (res: User) => {
         this.infoAboutSelf = res;
       },
       err => {
         if (err.error === 'Unauthorized') {
-          this.notify.error(`${err.error}. Plese sign in!`);
+          this.notify.error(`Token is expired. Please sign in!`);
           this.router.navigate(['/login']);
         } else {
           this.notify.error(err.message);
@@ -46,5 +46,9 @@ export class MyPageComponent implements OnInit {
         }
       }
     );
+  }
+
+  editSelf(): void {
+    this.router.navigate(['/my-page/edit']);
   }
 }

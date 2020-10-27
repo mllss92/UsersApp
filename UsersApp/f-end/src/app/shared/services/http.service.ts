@@ -29,24 +29,29 @@ export class HttpService {
     return this.http.post('http://localhost:3000/api/users/create-user', user, this.makeHeaders());
   }
 
-  public getAccessRight(user: object): Observable<object> {
-    return this.http.post('http://localhost:3000/api/users/get-access-right', user, this.makeHeaders());
+  public getAccessRight(): Observable<object> {
+    return this.http.get('http://localhost:3000/api/users/get-access-right', this.makeHeaders());
   }
 
   public getInfoAboutUser(userId: number): Observable<object> {
     return this.http.get(`http://localhost:3000/api/users/get-info-about-user/${userId}`, this.makeHeaders());
   }
 
-  public getInfoAboutSelf(email: object): Observable<object> {
-    return this.http.post('http://localhost:3000/api/users/get-info-about-self', email, this.makeHeaders());
+  public getInfoAboutSelf(): Observable<object> {
+    return this.http.get('http://localhost:3000/api/users/get-info-about-self', this.makeHeaders());
   }
 
   public editUser(user: User): Observable<object> {
-    return this.http.post('http://localhost:3000/api/users/edit-user', user, this.makeHeaders());
+    return this.http.put('http://localhost:3000/api/users/edit-user', user, this.makeHeaders());
+  }
+
+  public editSelf(user: User, oldPassword?: string): Observable<object> {
+    return this.http.put('http://localhost:3000/api/users/edit-self', { user, oldPassword }, this.makeHeaders());
   }
 
   public deleteUser(id: number): Observable<object> {
     return this.http.delete(`http://localhost:3000/api/users/delete-user/${id}`, this.makeHeaders());
   }
+
 
 }

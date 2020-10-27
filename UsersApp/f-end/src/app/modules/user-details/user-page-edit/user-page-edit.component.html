@@ -1,0 +1,31 @@
+<div class="container bg-secondary px-5 text-light">
+  <div class="edit py-5">
+    <form class="form-group" [formGroup]="editForm" (change)="onFormChange()">
+      <div class="name border rounded p-2 mb-3">
+        <label for="name">Name:</label>
+        <input class="form-control" type="text" name="name" id="name" formControlName="name">
+      </div>
+      <div class="rights border rounded p-2 mb-3" *ngIf="accesRights.includes('can_edit_users_full')">
+        <label for="rights">Users rights:</label>
+        <input class="form-control" type="text" name="rights" id="rights" readonly formControlName="userRights">
+        <select class="form-control my-2 w-25 d-inline" #select (change)="onSelectChange(select)">
+          <option value="can_view_users">can view users</option>
+          <option value="can_edit_users">can edit users</option>
+          <option value="can_delete_users">can delete users</option>
+          <option value="can_view_details">can view details</option>
+          <option value="can_view_details_full">can view details (full)</option>
+          <option value="can_edit_users_full">can edit users (full)</option>
+        </select>
+        <button class="btn btn-success ml-4 btn-sm" [disabled]="editForm.value.userRights.includes(selectValue)"
+          (click)="addRights(select.value)">Add</button>
+        <button class="btn btn-danger ml-2 btn-sm" [disabled]="!editForm.value.userRights.includes(selectValue)"
+          (click)="removeRights(select.value)">Remove</button>
+      </div>
+      <div class="buttons navbar">
+        <button class="btn w-25 btn-success" [disabled]="editForm.invalid || !editForm.dirty"
+          (click)="onSubmit()">Save</button>
+        <button class="btn w-25 btn-warning" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

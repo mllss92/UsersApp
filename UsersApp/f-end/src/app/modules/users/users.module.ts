@@ -7,15 +7,14 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
 import { AddComponent } from './add/add.component';
 import { ValidationErrMsgComponent } from './validation-err-msg/validation-err-msg.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
+
 
 
 @NgModule({
   declarations: [
     UsersComponent,
     AddComponent,
-    ValidationErrMsgComponent,
-    EditUserComponent
+    ValidationErrMsgComponent
   ],
   imports: [
     CommonModule,
